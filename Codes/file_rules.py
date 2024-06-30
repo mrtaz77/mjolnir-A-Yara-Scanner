@@ -2,6 +2,7 @@ import yara
 import plyara
 from util.read_yara_strings import ReadOnlyStrings
 from util.read_conditions import ReadOnlyConditions
+from util.read_match import ReadOnlyMatch
 
 class FileRules:
 	def __init__(self, rulesFilePath=None):
@@ -56,3 +57,16 @@ class FileRules:
 
 	def showCondition(self, parsed_rule):
 		print(ReadOnlyConditions(parsed_rule['condition_terms']))
+
+	def match_file(self, file_path):
+		if self.rules is None:
+			print("No rules in file; You are not worthy of lifting mjolnir")
+			return False
+
+		matches = self.rules.match(file_path)
+
+		if matches:
+			print(ReadOnlyMatch(matches))
+			return True
+		else:
+			return False
