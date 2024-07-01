@@ -42,6 +42,6 @@ class FileInfo:
 				f"MD5: {self.md5}\n"
 				f"SHA1: {self.sha1}\n"
 				f"SHA256: {self.sha256}\n"
-				f"CREATED: {self.created}\n"
-				f"MODIFIED: {self.modified}\n"
+				f"CREATED: {self.created} "
+				f"MODIFIED: {self.modified} "
 				f"ACCESSED: {self.accessed}")
