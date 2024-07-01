@@ -1,4 +1,4 @@
-from colorama import init, Fore, Back
+from colorama import init, Fore, Back, Style
 
 init()
 FORE_RED = Fore.LIGHTRED_EX
@@ -7,8 +7,12 @@ FORE_CYAN = Fore.LIGHTCYAN_EX
 FORE_YELLOW = Fore.LIGHTYELLOW_EX
 FORE_WHITE = Fore.WHITE
 FORE_BLACK = Fore.BLACK
+FORE_MAGENTA = Fore.LIGHTMAGENTA_EX
 
 BG_GREEN = Back.LIGHTGREEN_EX
 BG_RED = Back.LIGHTRED_EX
 BG_CYAN = Back.LIGHTCYAN_EX
 BG_YELLOW = Back.LIGHTYELLOW_EX
+BG_MAGENTA = Back.LIGHTMAGENTA_EX
+
+RESET = Style.RESET_ALL
