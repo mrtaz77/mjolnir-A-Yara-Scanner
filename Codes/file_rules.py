@@ -9,6 +9,7 @@ class FileRules:
 		self.rulesFilePath = rulesFilePath
 		self.rules = None
 		self.parsed_rules = None
+		self.sub_score = 0
 		if rulesFilePath is not None:
 			self.load_rules(rulesFilePath)
 
@@ -63,10 +64,29 @@ class FileRules:
 			print("No rules in file; You are not worthy of lifting mjolnir")
 			return False
 
-		matches = self.rules.match(file_path)
+		self.matches = self.rules.match(file_path)
 
-		if matches:
-			print(ReadOnlyMatch(matches))
-			return True
-		else:
-			return False
+		return self.matches is not None
+
+	def match_report(self, initReasonCount):
+		for match in self.matches:
+			print(f"REASON_{initReasonCount}: Yara Rule MATCH: {match.rule} SUBSCORE: 70")
+			self.showDescAndAuthor(match.rule)
+			initReasonCount += 1
+			self.sub_score += 70
+			print(ReadOnlyMatch(match))
+
+	def getScore(self):
+		return self.sub_score
+	
+	def showDescAndAuthor(self, rule):
+		desc = "Not set"
+		author = "-"
+		for r in self.rules:
+			if r.identifier == rule:
+				if 'description' in r.meta:
+					desc = r.meta['description']
+				if 'author' in r.meta:
+					author = r.meta['author']
+				break
+		print(f"DESCRIPTION: {desc} AUTHOR: {author}")
