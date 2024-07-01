@@ -3,6 +3,7 @@ import plyara
 from util.read_yara_strings import ReadOnlyStrings
 from util.read_conditions import ReadOnlyConditions
 from util.read_match import ReadOnlyMatch
+from artwork import *
 
 class FileRules:
 	def __init__(self, rulesFilePath=None):
@@ -71,12 +72,12 @@ class FileRules:
 	def increaseScore(self, score):
 		self.score += score
 
-	def match_report(self, initReasonCount):
+	def match_report(self, initReasonCount, color):
 		for match in self.matches:
-			print(f"REASON_{initReasonCount}: Yara Rule MATCH: {match.rule} SUBSCORE: 70")
-			self.showDescAndAuthor(match.rule)
+			print(f"{FORE_WHITE}REASON_{initReasonCount}: {color}Yara Rule {RESET}MATCH: {color}{match.rule} {RESET}SUBSCORE: {color}70{RESET}")
+			self.showDescAndAuthor(match.rule, color)
 			initReasonCount += 1
-			print(ReadOnlyMatch(match))
+			print(ReadOnlyMatch(match, color))
 
 	def numberOfRulesMatched(self):
 		return len(self.matches)
@@ -84,7 +85,7 @@ class FileRules:
 	def getScore(self):
 		return self.score
 	
-	def showDescAndAuthor(self, rule):
+	def showDescAndAuthor(self, rule, color):
 		desc = "Not set"
 		author = "-"
 		for r in self.rules:
@@ -94,4 +95,4 @@ class FileRules:
 				if 'author' in r.meta:
 					author = r.meta['author']
 				break
-		print(f"DESCRIPTION: {desc} AUTHOR: {author}")
+		print(f"{FORE_WHITE}DESCRIPTION: {color}{desc} {FORE_WHITE}AUTHOR: {color}{author}{RESET}")

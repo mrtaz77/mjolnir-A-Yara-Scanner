@@ -1,6 +1,7 @@
 import os
 import hashlib
 import datetime
+from artwork import *
 
 class FileInfo:
 	def __init__(self, file_path):
@@ -13,6 +14,7 @@ class FileInfo:
 		self.created = self.get_file_time(file_path, 'created')
 		self.modified = self.get_file_time(file_path, 'modified')
 		self.accessed = self.get_file_time(file_path, 'accessed')
+		self.fore = None
 	
 	def get_file_path(self):
 		return self.file_path
@@ -27,6 +29,9 @@ class FileInfo:
 				hash_algorithm.update(chunk)
 		return hash_algorithm.hexdigest()
 
+	def setColor(self, fore):
+		self.fore = fore
+
 	def get_file_time(self, file_path, time_type):
 		stat = os.stat(file_path)
 		if time_type == 'created':
@@ -37,11 +42,12 @@ class FileInfo:
 			return datetime.datetime.fromtimestamp(stat.st_atime).ctime()
 
 	def __str__(self):
-		return (f"FILE: {self.file_path} SIZE: {self.size}\n"
-				f"FIRST_BYTES: {self.first_bytes}\n"
-				f"MD5: {self.md5}\n"
-				f"SHA1: {self.sha1}\n"
-				f"SHA256: {self.sha256}\n"
-				f"CREATED: {self.created} "
-				f"MODIFIED: {self.modified} "
-				f"ACCESSED: {self.accessed}")
+		return (f"{FORE_WHITE}FILE: {self.fore}{self.file_path}{RESET}\n"
+                f"{FORE_WHITE}SIZE: {self.fore}{self.size}{RESET}\n"
+                f"{FORE_WHITE}FIRST_BYTES: {self.fore}{self.first_bytes}{RESET}\n"
+                f"{FORE_WHITE}MD5: {self.fore}{self.md5}{RESET}\n"
+                f"{FORE_WHITE}SHA1: {self.fore}{self.sha1}{RESET}\n"
+                f"{FORE_WHITE}SHA256: {self.fore}{self.sha256}{RESET}\n"
+                f"{FORE_WHITE}CREATED: {self.fore}{self.created} {RESET}\n"
+                f"{FORE_WHITE}MODIFIED: {self.fore}{self.modified} {RESET}\n"
+                f"{FORE_WHITE}ACCESSED: {self.fore}{self.accessed}{RESET}")
