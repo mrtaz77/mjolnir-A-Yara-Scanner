@@ -9,7 +9,7 @@ class FileRules:
 		self.rulesFilePath = rulesFilePath
 		self.rules = None
 		self.parsed_rules = None
-		self.sub_score = 0
+		self.score = 0
 		if rulesFilePath is not None:
 			self.load_rules(rulesFilePath)
 
@@ -65,19 +65,24 @@ class FileRules:
 			return False
 
 		self.matches = self.rules.match(file_path)
-
+		self.increaseScore(len(self.matches) * 70)
 		return self.matches is not None
+
+	def increaseScore(self, score):
+		self.score += score
 
 	def match_report(self, initReasonCount):
 		for match in self.matches:
 			print(f"REASON_{initReasonCount}: Yara Rule MATCH: {match.rule} SUBSCORE: 70")
 			self.showDescAndAuthor(match.rule)
 			initReasonCount += 1
-			self.sub_score += 70
 			print(ReadOnlyMatch(match))
 
+	def numberOfRulesMatched(self):
+		return len(self.matches)
+
 	def getScore(self):
-		return self.sub_score
+		return self.score
 	
 	def showDescAndAuthor(self, rule):
 		desc = "Not set"
