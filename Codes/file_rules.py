@@ -61,6 +61,7 @@ class FileRules:
 		print(ReadOnlyConditions(parsed_rule['condition_terms']))
 
 	def match_file(self, file_path):
+		self.score = 0
 		if self.rules is None:
 			print("No rules in file; You are not worthy of lifting mjolnir")
 			return False
