@@ -79,6 +79,7 @@ class DirManager:
 		color = self.getContextColor(score)
 		file.setColor(color)
 		print(file)
+		print(f"{FORE_WHITE}Score: {color}{score}{RESET}")
 		countOfRulesMatched = 1
 		for rule in matched_rules:
 			rule.match_report(countOfRulesMatched, color)
