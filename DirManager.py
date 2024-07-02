@@ -25,10 +25,10 @@ class DirManager:
 			print(f"{BG_GREEN}{FORE_BLACK}[INFO]{RESET}{FORE_GREEN} Initialized {self.number_of_rules_loaded()} YARA rules")
 
 	def validate_path(self, path):
-		if os.listdir(path) == []:
-			self.exception(f"Provided path \"{path}\" is empty.")
 		if not os.path.exists(path):
 			self.exception(f"Path not found: \"{path}\"")
+		if os.listdir(path) == []:
+			self.exception(f"Provided path \"{path}\" is empty.")
 
 	def load_yara_rules(self, path):
 		if os.path.isfile(path):
