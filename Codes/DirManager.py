@@ -70,8 +70,10 @@ class DirManager:
 				if rule.match_file(file.get_file_path()):
 					matched_rules.append(rule)
 					score += rule.getScore()
-			if len(matched_rules) > 0:
+			if score > 0:
 				self.generateFileReport(file, matched_rules, score)
+		print(f"{BG_BLUE}{FORE_BLACK}[NOTICE]{RESET}{FORE_BLUE} Results: {self.alerts} alerts, {self.warnings} warnings{RESET}")
+		self.suggestion()
 
 	def generateFileReport(self, file, matched_rules, score):
 		color = self.getContextColor(score)
@@ -81,9 +83,7 @@ class DirManager:
 		for rule in matched_rules:
 			rule.match_report(countOfRulesMatched, color)
 			countOfRulesMatched += rule.numberOfRulesMatched()
-		print(f"{BG_BLUE}{FORE_BLACK}[NOTICE]{RESET}{FORE_BLUE} Results: {self.alerts} alerts, {self.warnings} warnings{RESET}")
-		self.suggestion()
-
+		
 	def suggestion(self):
 		if self.alerts > 0:
 			print(f"{BG_RED}{FORE_BLACK}[RESULT]{RESET} {FORE_RED}Indicators detected!{RESET}")
