@@ -42,12 +42,12 @@ class FileInfo:
 			return datetime.datetime.fromtimestamp(stat.st_atime).ctime()
 
 	def __str__(self):
-		return (f"{FORE_WHITE}FILE: {self.fore}{self.file_path}{RESET}\n"
+		return (f"{FORE_WHITE}FILE: {self.fore}{self.file_path}{RESET} "
                 f"{FORE_WHITE}SIZE: {self.fore}{self.size}{RESET}\n"
                 f"{FORE_WHITE}FIRST_BYTES: {self.fore}{self.first_bytes}{RESET}\n"
                 f"{FORE_WHITE}MD5: {self.fore}{self.md5}{RESET}\n"
                 f"{FORE_WHITE}SHA1: {self.fore}{self.sha1}{RESET}\n"
                 f"{FORE_WHITE}SHA256: {self.fore}{self.sha256}{RESET}\n"
-                f"{FORE_WHITE}CREATED: {self.fore}{self.created} {RESET}\n"
-                f"{FORE_WHITE}MODIFIED: {self.fore}{self.modified} {RESET}\n"
+                f"{FORE_WHITE}CREATED: {self.fore}{self.created} {RESET} "
+                f"{FORE_WHITE}MODIFIED: {self.fore}{self.modified} {RESET} "
                 f"{FORE_WHITE}ACCESSED: {self.fore}{self.accessed}{RESET}")
