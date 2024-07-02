@@ -20,6 +20,9 @@ class DirManager:
 
 		if not self.yara_rules:
 			self.exception(f"No .yar files found in the rules path \"{self.rules_path}\"")
+		else:
+			print(f"{BG_GREEN}{FORE_BLACK}[INFO]{RESET}{FORE_GREEN} Initializing all YARA rules at once (composed string of all rule files)")
+			print(f"{BG_GREEN}{FORE_BLACK}[INFO]{RESET}{FORE_GREEN} Initialized {self.number_of_rules_loaded()} YARA rules")
 
 	def validate_path(self, path):
 		if os.listdir(path) == []:
@@ -30,10 +33,12 @@ class DirManager:
 	def load_yara_rules(self, path):
 		if os.path.isfile(path):
 			if path.endswith('.yar'):
+				print(f"{BG_GREEN}{FORE_BLACK}[INFO]{RESET}{FORE_GREEN}Processing YARA rules file \"{self.rules_path}\"{RESET}")
 				self.yara_rules.append(FileRules(path))
 			else:
 				self.exception(f"Invalid file extension for YARA rule: {path}")
 		elif os.path.isdir(path):
+			print(f"{BG_GREEN}{FORE_BLACK}[INFO]{RESET}{FORE_GREEN} Processing YARA rules folder \"{self.rules_path}\"{RESET}")
 			for root, _, files in os.walk(path):
 				for file in files:
 					if file.endswith('.yar'):
@@ -49,7 +54,15 @@ class DirManager:
 					full_path = os.path.join(root, file)
 					self.files_to_scan.append(FileInfo(full_path))
 					
+	def number_of_rules_loaded(self):
+		sum = 0
+		for rule in self.yara_rules:
+			sum += rule.numberOfRules()
+		return sum
+
 	def scan(self):
+		print(f"{BG_GREEN}{FORE_BLACK}[INFO]{RESET} {FORE_GREEN}Scanning path \"{self.files_path}\" ...{RESET}")	
+		print(f"{BG_GREEN}{FORE_BLACK}[INFO]{RESET} {FORE_GREEN}Scanning {len(self.files_to_scan)} files...{RESET}")
 		for file in self.files_to_scan:
 			score = 0
 			matched_rules = []
@@ -68,6 +81,16 @@ class DirManager:
 		for rule in matched_rules:
 			rule.match_report(countOfRulesMatched, color)
 			countOfRulesMatched += rule.numberOfRulesMatched()
+		print(f"{BG_BLUE}{FORE_BLACK}[NOTICE]{RESET}{FORE_BLUE} Results: {self.alerts} alerts, {self.warnings} warnings{RESET}")
+		self.suggestion()
+
+	def suggestion(self):
+		if self.alerts > 0:
+			print(f"{BG_RED}{FORE_BLACK}[RESULT]{RESET} {FORE_RED}Indicators detected!{RESET}")
+		elif self.warnings > 0:
+			print(f"{BG_YELLOW}{FORE_BLACK}[RESULT]{RESET} {FORE_YELLOW}Suspicious objects detected!{RESET}")
+		else:
+			print(f"{BG_GREEN}{FORE_BLACK}[RESULT]{RESET} {FORE_GREEN}SYSTEM SEEMS TO BE CLEAN.{RESET}")
 
 	def getContextColor(self, score):
 		if score > 100:
@@ -76,7 +99,7 @@ class DirManager:
 		if score > 60:
 			self.warning()
 			return FORE_YELLOW
-		return FORE_GREEN, BG_GREEN
+		return FORE_GREEN
 
 	def alert(self):
 		self.alerts += 1
