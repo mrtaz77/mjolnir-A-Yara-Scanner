@@ -20,7 +20,7 @@ class Mjolnir:
 		self.end_message()
 
 	def end_message(self):
-		print(f"{FORE_BLACK}{BG_BLUE}[NOTICE]{RESET} {FORE_BLUE}Mjolnir has competed its service{RESET}"
+		print(f"{FORE_BLACK}{BG_BLUE}[NOTICE]{RESET} {FORE_BLUE}Mjolnir has completed its service{RESET}"
 		f"{FORE_WHITE} TIME: {FORE_BLUE}{self.get_time()}")
 
 	def get_time(self):
