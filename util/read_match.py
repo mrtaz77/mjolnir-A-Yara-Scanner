@@ -1,4 +1,4 @@
-from artwork import *
+from util.artwork import *
 
 class ReadOnlyMatch:
     

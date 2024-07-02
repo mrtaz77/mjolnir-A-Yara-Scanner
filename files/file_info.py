@@ -1,7 +1,7 @@
 import os
 import hashlib
 import datetime
-from artwork import *
+from util.artwork import *
 
 class FileInfo:
 	def __init__(self, file_path):

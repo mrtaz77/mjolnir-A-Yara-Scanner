@@ -3,7 +3,7 @@ from datetime import datetime, timezone
 import os
 
 import argparse
-from artwork import *
+from util.artwork import *
 from DirManager import DirManager
 
 class Mjolnir:

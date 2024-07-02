@@ -3,7 +3,7 @@ import plyara
 from util.read_yara_strings import ReadOnlyStrings
 from util.read_conditions import ReadOnlyConditions
 from util.read_match import ReadOnlyMatch
-from artwork import *
+from util.artwork import *
 
 class FileRules:
 	def __init__(self, rulesFilePath=None):

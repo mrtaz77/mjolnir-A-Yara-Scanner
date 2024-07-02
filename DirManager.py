@@ -1,7 +1,7 @@
 import os, sys
-from file_rules import FileRules
-from file_info import FileInfo
-from artwork import *
+from files.file_rules import FileRules
+from files.file_info import FileInfo
+from util.artwork import *
 
 class DirManager:
 	def __init__(self, rules_path, files_path):

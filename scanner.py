@@ -1,5 +1,5 @@
 import argparse
-from artwork import *
+from util.artwork import *
 from mjolnir import Mjolnir
 import os
 
