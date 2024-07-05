@@ -26,8 +26,8 @@ options:
   -h, --help            show this help message and exit
   -r RULES, --rules RULES
                         Directory or file containing YARA rules
-                        (default: D:\Repo Hub\mjolnir)
+                        (default: current directory)
   -f FILES, --files FILES
-                        Directory or file to be scanned (default:
-                        D:\Repo Hub\mjolnir)
+                        Directory or file to be scanned 
+						(default: current directory)
 ```
